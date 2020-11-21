@@ -777,9 +777,9 @@ function add_product()
 		url: 'http://46.101.144.20/api/api.php',
 		data: 
 		{
-			p : "chestie"+breaks+product_name+breaks+location_tag_target_block+breaks+location_tag_x+breaks+location_tag_y,
-			q : "tTGjsXp8VRD573uqUh9L",
-			'image' : formData
+			p : "chestie"+breaks+"produce", //"chestie"+breaks+product_name+breaks+location_tag_target_block+breaks+location_tag_x+breaks+location_tag_y,
+			q : "rEBp5oGdqm0SJu4OPJXb", // "tTGjsXp8VRD573uqUh9L",
+			// 'image' : formData
 		},
 		contentType: false,
         processData: false,
