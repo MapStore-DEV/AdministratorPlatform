@@ -5,8 +5,8 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/map.css">
+	<link rel="stylesheet" type="text/css" href="css/mapstore-theme.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../AdministratorPlatform/assets/css/mapstore-theme.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -18,12 +18,12 @@
 
 <div id="search_div" onmousedown="activate_search_div_switch(event);deactivate_global_move_switch();" onmousemove="update_search_div_switch(event);deactivate_global_move_switch();" onmouseup="deactivate_search_div_switch();deactivate_global_move_switch();" >
 	<div id="search_div_outliner">
-	<input type="text" name="" id="search_div_search_input" placeholder="Search products">
-	<img src="img/loupe.png" id="search_div_img">
+		<img src="img/loupe.png" id="search_div_img">
+		<input type="text" name="" id="search_div_search_input" placeholder="Search products">
 	</div>
 </div>
 
-<div class="btn-add-elements"><button class="btn btn-danger btn-circle btn-md" onclick="toggle_options_div()"><img src="../AdministratorPlatform/assets/icons/plus.png" width="25px" style="margin:0 auto;"></button></div>
+<div class="btn-add-elements"><button class="btn btn-danger btn-circle btn-md" onclick="toggle_options_div()"><img src="img/plus.png" width="25px" style="margin:0 auto;"></button></div>
 <div id="options_div" onmousedown="activate_options_div_switch(event);deactivate_global_move_switch();" onmousemove="update_options_div_switch(event);deactivate_global_move_switch();" onmouseup="deactivate_options_div_switch();deactivate_global_move_switch();">
 	
 	<div id="options_div_header">
@@ -204,27 +204,29 @@
 
 		<div id="add_product_div" style="display: none;">
 			
-			<div id="add_block_div">
-				<div class="add_block_div_range"><div style="display: inline;">Product Name: </div> <input type="text" name="" id="product_name_input" class="add_block_div_input"> <img src="img/text.png" class="add_block_div_img"></div>
-			</div>
-
-			<div id="add_block_div">
-				<div class="add_block_div_range"><div style="display: inline;">Product Image: </div> <input type="file" name="" id="product_file_input" class="add_block_div_input"> <img src="img/gallery.png" class="add_block_div_img"></div>
-			</div>
-
-			<div id="add_block_div">
-				<div class="add_block_div_range"><div style="display: inline;" id="product_location_div" >Product Location: </div> <button type="button" class="options_div_btn_2 btn btn-primary" id="select_location_btn" onclick="select_product_location(0);" >Set Location</button> <img src="img/target.png" class="add_block_div_img"></div>
-			</div>
-
-			<div id="options_div_buttons">
-				
-				<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
-					<button type="button" class="options_div_btn btn btn-danger" onclick="clone_selected();" style="width:95%">Cancel</button>
+			<form id="product_form">
+				<div id="add_block_div">
+					<div class="add_block_div_range"><div style="display: inline;">Product Name: </div> <input type="text" name="" id="product_name_input" class="add_block_div_input"> <img src="img/text.png" class="add_block_div_img"></div>
 				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
-					<button type="button" class="options_div_btn_3 btn btn-success" style="width:95%" onclick="add_product();" >Finish</button>
+
+				<div id="add_block_div">
+					<div class="add_block_div_range"><div style="display: inline;">Product Image: </div> <input type="file" name="" id="product_file_input" class="add_block_div_input"> <img src="img/gallery.png" class="add_block_div_img"></div>
 				</div>
-			</div>
+
+				<div id="add_block_div">
+					<div class="add_block_div_range"><div style="display: inline;" id="product_location_div" >Product Location: </div> <button type="button" class="options_div_btn_2 btn btn-primary" id="select_location_btn" onclick="select_product_location(0);" >Set Location</button> <img src="img/target.png" class="add_block_div_img"></div>
+				</div>
+
+				<div id="options_div_buttons">
+					
+					<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
+						<button type="button" class="options_div_btn btn btn-danger" onclick="clone_selected();" style="width:95%">Cancel</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
+						<button type="button" class="options_div_btn_3 btn btn-success" style="width:95%" onclick="add_product();" >Finish</button>
+					</div>
+				</div>
+			</form>
 
 		</div>
 

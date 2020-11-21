@@ -1,3 +1,5 @@
+var breaks = ';;';
+
 var blocks_count = 0;
 
 var selected_blocks_array = [];
@@ -759,6 +761,34 @@ function add_product()
 
 	var product_obj = {block:location_tag_target_block, x:location_tag_x, y:location_tag_y, name:product_name, image:product_picture};
 	product_list.push(product_obj);
+
+	var form = document.getElementById("product_form");
+	var fileInput = document.getElementById('product_file_input');
+	var prod_file = fileInput.files[0];
+	console.log('>>'+prod_file);
+	var formData = new FormData();
+	formData.append('image', prod_file);
+	console.log(formData);
+
+	$.ajax({
+		type: 'POST',
+		url: 'http://46.101.144.20/api/api.php',
+		data: 
+		{
+			p : "chestie"+breaks+product_name+breaks+location_tag_target_block+breaks+location_tag_x+breaks+location_tag_y,
+			q : "tTGjsXp8VRD573uqUh9L",
+			'image' : formData
+		},
+		contentType: false,
+        processData: false,
+		success: function(response){ 
+			console.log(response);
+			alert("ALL GOOD");
+		},
+		error: function (request, status, error) {
+			alert(request.responseText);
+		}
+	});
 
 }
 
