@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html onkeydown="check_ctrl(event);" onkeyup="reset_keys();" onmousedown="activate_global_move_switch(event);" onmousemove="update_scroll(event);" onmouseup="deactivate_global_move_switch();" >
+<head>
+	<title>Build Map</title>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/map.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../AdministratorPlatform/assets/css/mapstore-theme.css">
+</head>
+<body>
+
+<div id="zoom_div" class="btn btn-success">
+	<div class="zoom_div_btn" onclick="zoom_in();" >+</div>
+	<div class="zoom_div_btn" onclick="zoom_out();">-</div>
+</div>
+
+<div id="search_div" onmousedown="activate_search_div_switch(event);deactivate_global_move_switch();" onmousemove="update_search_div_switch(event);deactivate_global_move_switch();" onmouseup="deactivate_search_div_switch();deactivate_global_move_switch();" >
+	<div id="search_div_outliner">
+	<input type="text" name="" id="search_div_search_input" placeholder="Search products">
+	<img src="img/loupe.png" id="search_div_img">
+	</div>
+</div>
+
+<div class="btn-add-elements"><button class="btn btn-danger btn-circle btn-md" onclick="toggle_options_div()"><img src="../AdministratorPlatform/assets/icons/plus.png" width="25px" style="margin:0 auto;"></button></div>
+<div id="options_div" onmousedown="activate_options_div_switch(event);deactivate_global_move_switch();" onmousemove="update_options_div_switch(event);deactivate_global_move_switch();" onmouseup="deactivate_options_div_switch();deactivate_global_move_switch();">
+	
+	<div id="options_div_header">
+		<div class="options_div_header_text col-lg-4 col-md-4 col-sm-12" onclick="load_store_map_btns();" >Manage Store Map</div>
+		<div class="options_div_header_text col-lg-4 col-md-4 col-sm-12" onclick="load_store_products_btns();" >Manage Store Products</div>
+		<div class="options_div_header_text col-lg-4 col-md-4 col-sm-12" onclick="export_map();" >Export Map</div>
+	</div>
+
+	<div>
+		<hr class="hr_style">
+	</div>
+
+	<div id="options_div_buttons">
+		<div class="col-lg-4 col-md-6 col-sm-12 btn-option">
+			<button type="button" class="options_div_btn btn btn-primary" style="width:95%" onclick="add_block();" >Add Block</button>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12 btn-option">
+			<button type="button" class="options_div_btn_2 btn btn-primary" style="width:95%">Search Block</button>
+		</div>
+		<div class="col-lg-4 col-md-12 col-sm-12 btn-option">
+			<button type="button" id="options_div_lock_btn" class="options_div_btn_4 btn btn-primary" style="width:95%" onclick="options_menu_switch(0);" >Unlock</button>
+		</div>
+	</div>
+
+	<hr class="hr_style">
+
+	<div id="blocks_manager">
+
+		<div id="add_block_main_div" style="display: none;">
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Block Name: </div> <input type="text" name="" id="name_block_input" class="add_block_div_input" onkeyup="change_block_property('block_name','name_block_input');" > <img src="img/text.png" class="add_block_div_img"></div>
+		</div>
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Block Name Size: </div> <input type="text" name="" id="block_name_size_input" class="add_block_div_input" onkeyup="update_input('block_name_size_input','block_name_size_slider');change_block_property('block_size','block_name_size_input');"> <img src="img/text_size.png" class="add_block_div_img"></div>
+			<input type="range" min="1" max="100" value="20" class="slider" id="block_name_size_slider" onmousemove="update_ranger('block_name_size_slider','block_name_size_input');change_block_property('block_size','block_name_size_input');" onmousedown="activate_ranger_switch('block_name_size_slider');" onmouseup="deactivate_ranger_switch('block_name_size_slider');" >
+		</div>
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Block Name Color: </div> 
+			<div class="add_block_div_color_palette" id="block_font_color"> 
+
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFFFF;" onclick="change_block_font_color('#FFFFFF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #E0E0E0;" onclick="change_block_font_color('#E0E0E0');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #C0C0C0;" onclick="change_block_font_color('#C0C0C0');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #A0A0A0;" onclick="change_block_font_color('#A0A0A0');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #606060;" onclick="change_block_font_color('#606060');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #202020;" onclick="change_block_font_color('#202020');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFCCE5;" onclick="change_block_font_color('#FFCCE5');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #E5CCFF;" onclick="change_block_font_color('#E5CCFF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF99CC;" onclick="change_block_font_color('#FF99CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF66B2;" onclick="change_block_font_color('#FF66B2');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF3399;" onclick="change_block_font_color('#FF3399');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF66FF;" onclick="change_block_font_color('#FF66FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF00FF;" onclick="change_block_font_color('#FF00FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #990099;" onclick="change_block_font_color('#990099');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #6600CC;" onclick="change_block_font_color('#6600CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #3333FF;" onclick="change_block_font_color('#3333FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #0000CC;" onclick="change_block_font_color('#0000CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #000066;" onclick="change_block_font_color('#000066');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #3399FF;" onclick="change_block_font_color('#3399FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #0080FF;" onclick="change_block_font_color('#0080FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #0066CC;" onclick="change_block_font_color('#0066CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #33FFFF;" onclick="change_block_font_color('#33FFFF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00CCCC;" onclick="change_block_font_color('#00CCCC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #009999;" onclick="change_block_font_color('#009999');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #33FF99;" onclick="change_block_font_color('#33FF99');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00CC66;" onclick="change_block_font_color('#00CC66');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00994C;" onclick="change_block_font_color('#00994C');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #006633;" onclick="change_block_font_color('#006633');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #009900;" onclick="change_block_font_color('#009900');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00CC00;" onclick="change_block_font_color('#00CC00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00FF00;" onclick="change_block_font_color('#00FF00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFF66;" onclick="change_block_font_color('#FFFF66');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFF33;" onclick="change_block_font_color('#FFFF33');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFF00;" onclick="change_block_font_color('#FFFF00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #CCCC00;" onclick="change_block_font_color('#CCCC00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #994C00;" onclick="change_block_font_color('#994C00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #CC6600;" onclick="change_block_font_color('#CC6600');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF8000;" onclick="change_block_font_color('#FF8000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFB266;" onclick="change_block_font_color('#FFB266');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF6666;" onclick="change_block_font_color('#FF6666');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF3333;" onclick="change_block_font_color('#FF3333');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF0000;" onclick="change_block_font_color('#FF0000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #CC0000;" onclick="change_block_font_color('#CC0000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #990000;" onclick="change_block_font_color('#990000');" ></div>
+
+			</div>  <img src="img/rgb.png" class="add_block_div_img" id="block_font_color_img" style="cursor: pointer;" onclick="show_font_color_palette(0);"></div>
+		
+		</div> 
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Height: </div> <input type="text" name="" id="height_block_input" class="add_block_div_input" onkeyup="update_input('height_block_input','height_slider');change_block_property('height','height_block_input');"> <img src="img/shapes.png" class="add_block_div_img"></div>
+			<input type="range" min="1" max="900" value="450" class="slider" id="height_slider" onmousemove="update_ranger('height_slider','height_block_input');change_block_property('height','height_slider');" onmousedown="activate_ranger_switch('height_slider');" onmouseup="deactivate_ranger_switch('height_slider');" >
+		</div>
+ 
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Width: </div> <input type="text" name="" id="width_block_input" class="add_block_div_input" onkeyup="update_input('width_block_input','width_slider');change_block_property('width','width_block_input');"> <img src="img/shapes.png" class="add_block_div_img"></div>
+			<input type="range" min="1" max="900" value="450" class="slider" id="width_slider" onmousemove="update_ranger('width_slider','width_block_input');change_block_property('width','width_slider');" onmousedown="activate_ranger_switch('width_slider');" onmouseup="deactivate_ranger_switch('width_slider');" >
+		</div>
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Rotation: </div> <input type="text" name="" id="rotation_block_input" class="add_block_div_input" onkeyup="update_input('rotation_block_input','rotation_slider');change_block_property('rotation','rotation_block_input');" > <img src="img/compass.png" class="add_block_div_img"></div>
+			<input type="range" min="0" max="180" value="90" class="slider" id="rotation_slider" onmousemove="update_ranger('rotation_slider','rotation_block_input');change_block_property('rotation','rotation_slider');" onmousedown="activate_ranger_switch('rotation_slider');" onmouseup="deactivate_ranger_switch('rotation_slider');" >
+		</div>
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Border Radius: </div> <input type="text" name="" id="border_radius_block_input" onkeyup="update_input('border_radius_block_input','border_radius_slider');change_block_property('border_radius','border_radius_block_input');" class="add_block_div_input"> <img src="img/border.png" class="add_block_div_img"></div>
+			<input type="range" min="1" max="100" value="50" class="slider" id="border_radius_slider" onmousemove="update_ranger('border_radius_slider','border_radius_block_input');change_block_property('border_radius','border_radius_slider');" onmousedown="activate_ranger_switch('border_radius_slider');" onmouseup="deactivate_ranger_switch('border_radius_slider');" >
+		</div>
+
+		<div id="add_block_div">
+			<div class="add_block_div_range"><div style="display: inline;">Color: </div> 
+			<div class="add_block_div_color_palette" id="block_color">
+
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFFFF;" onclick="change_block_color('#FFFFFF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #E0E0E0;" onclick="change_block_color('#E0E0E0');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #C0C0C0;" onclick="change_block_color('#C0C0C0');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #A0A0A0;" onclick="change_block_color('#A0A0A0');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #606060;" onclick="change_block_color('#606060');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #202020;" onclick="change_block_color('#202020');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFCCE5;" onclick="change_block_color('#FFCCE5');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #E5CCFF;" onclick="change_block_color('#E5CCFF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF99CC;" onclick="change_block_color('#FF99CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF66B2;" onclick="change_block_color('#FF66B2');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF3399;" onclick="change_block_color('#FF3399');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF66FF;" onclick="change_block_color('#FF66FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF00FF;" onclick="change_block_color('#FF00FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #990099;" onclick="change_block_color('#990099');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #6600CC;" onclick="change_block_color('#6600CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #3333FF;" onclick="change_block_color('#3333FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #0000CC;" onclick="change_block_color('#0000CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #000066;" onclick="change_block_color('#000066');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #3399FF;" onclick="change_block_color('#3399FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #0080FF;" onclick="change_block_color('#0080FF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #0066CC;" onclick="change_block_color('#0066CC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #33FFFF;" onclick="change_block_color('#33FFFF');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00CCCC;" onclick="change_block_color('#00CCCC');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #009999;" onclick="change_block_color('#009999');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #33FF99;" onclick="change_block_color('#33FF99');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00CC66;" onclick="change_block_color('#00CC66');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00994C;" onclick="change_block_color('#00994C');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #006633;" onclick="change_block_color('#006633');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #009900;" onclick="change_block_color('#009900');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00CC00;" onclick="change_block_color('#00CC00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #00FF00;" onclick="change_block_color('#00FF00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFF66;" onclick="change_block_color('#FFFF66');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFF33;" onclick="change_block_color('#FFFF33');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFFF00;" onclick="change_block_color('#FFFF00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #CCCC00;" onclick="change_block_color('#CCCC00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #994C00;" onclick="change_block_color('#994C00');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #CC6600;" onclick="change_block_color('#CC6600');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF8000;" onclick="change_block_color('#FF8000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FFB266;" onclick="change_block_color('#FFB266');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF6666;" onclick="change_block_color('#FF6666');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF3333;" onclick="change_block_color('#FF3333');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #FF0000;" onclick="change_block_color('#FF0000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #CC0000;" onclick="change_block_color('#CC0000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: #990000;" onclick="change_block_color('#990000');" ></div>
+				<div class="add_block_div_color_palette_div" style="background-color: transparent;" onclick="change_block_color('transparent');" ></div>
+
+			</div>  <img src="img/eyedropper.png" class="add_block_div_img" id="block_color_img" style="cursor: pointer;" onclick="show_block_color_palette(0);"></div>
+		
+		</div> 
+			<div id="options_div_buttons">
+				<div class="col-lg-4 col-md-6 col-sm-12 btn-option">
+					<button type="button" class="options_div_btn btn btn-danger" style="width:95%" onclick="delete_blocks();" >Delete</button>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-12 btn-option">
+					<button type="button" class="options_div_btn_2 btn btn-primary" onclick="clone_selected();" style="width:95%">Clone</button>
+				</div>
+				<div class="col-lg-4 col-md-12 col-sm-12 btn-option">
+					<button type="button" id="options_div_lock_btn" class="options_div_btn_4 btn btn-success" style="width:95%" onclick="delete_blocks();" >Save</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="add_product_div" style="display: none;">
+			
+			<div id="add_block_div">
+				<div class="add_block_div_range"><div style="display: inline;">Product Name: </div> <input type="text" name="" id="product_name_input" class="add_block_div_input"> <img src="img/text.png" class="add_block_div_img"></div>
+			</div>
+
+			<div id="add_block_div">
+				<div class="add_block_div_range"><div style="display: inline;">Product Image: </div> <input type="file" name="" id="product_file_input" class="add_block_div_input"> <img src="img/gallery.png" class="add_block_div_img"></div>
+			</div>
+
+			<div id="add_block_div">
+				<div class="add_block_div_range"><div style="display: inline;" id="product_location_div" >Product Location: </div> <button type="button" class="options_div_btn_2 btn btn-primary" id="select_location_btn" onclick="select_product_location(0);" >Set Location</button> <img src="img/target.png" class="add_block_div_img"></div>
+			</div>
+
+			<div id="options_div_buttons">
+				
+				<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
+					<button type="button" class="options_div_btn btn btn-danger" onclick="clone_selected();" style="width:95%">Cancel</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
+					<button type="button" class="options_div_btn_3 btn btn-success" style="width:95%" onclick="add_product();" >Finish</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<div id="map">
+	<img src="img/location.png" id="location_tag" onmousedown="switch_on_location_tag(event);" onmouseup="switch_off_location_tag();" onmousemove="move_location_tag(event);">
+</div>
+
+</body>
+</html>
