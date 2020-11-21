@@ -743,6 +743,7 @@ function move_location_tag(event)
 function add_product()
 {
 
+	console.log("ENTER");
 	target_block_height = parseInt($("#block_nr_"+location_tag_target_block).css("height"));
 	target_block_width = parseInt($("#block_nr_"+location_tag_target_block).css("width"));
 	target_block_x_pos = parseInt($("#block_nr_"+location_tag_target_block).css("left"));
@@ -762,6 +763,7 @@ function add_product()
 	var product_obj = {block:location_tag_target_block, x:location_tag_x, y:location_tag_y, name:product_name, image:product_picture};
 	product_list.push(product_obj);
 
+	console.log("HAH");
 	var form = document.getElementById("product_form");
 	var fileInput = document.getElementById('product_file_input');
 	var prod_file = fileInput.files[0];
