@@ -779,7 +779,7 @@ function add_product()
 		{
 			p : "chestie"+breaks+product_name+breaks+location_tag_target_block+breaks+location_tag_x+breaks+location_tag_y,
 			q : "tTGjsXp8VRD573uqUh9L",
-			'image' : formData
+			image : formData
 		},
 		success: function(response){ 
 			console.log(response);
