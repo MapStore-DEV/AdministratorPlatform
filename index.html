@@ -29,12 +29,12 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">MapStore</div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="sidebar-buton">Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="sidebar-buton">Shortcuts</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="sidebar-buton">Overview</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="sidebar-buton">Events</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="sidebar-buton">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" id="sidebar-buton">Status</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -42,7 +42,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" id="navbar-index">
         <button class="btn" id="menu-toggle"><img src="assets/icons/menu.png" width="25px"></button>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
             </li>
             <li class="nav-item dropdown">
               
-              <a class="nav-link dropdown-toggle color-GRAY-DARK" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle color-WHITE" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="assets/img/company_logo.png" width="39px" style="border-radius:100%;border:1px solid #3E565D">
                 Kaufland
               </a>
@@ -82,55 +82,60 @@
         <div class="row">
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social.png" alt="Card image cap">
+              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Magazin Calea Sagului</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
+                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
                 <a href="#" class="btn btn-danger">Delete</a>
               </div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social.png" alt="Card image cap">
+              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Magazin Giroc</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
+                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
                 <a href="#" class="btn btn-danger">Delete</a>
               </div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social.png" alt="Card image cap">
+              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Magazin Iuliu Mall</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
+                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
                 <a href="#" class="btn btn-danger">Delete</a>
               </div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social.png" alt="Card image cap">
+              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Magazin Subsol Georgel</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
+                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
                 <a href="#" class="btn btn-danger">Delete</a>
               </div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social.png" alt="Card image cap">
+              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Magazin Subsol Georgel</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
+                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
                 <a href="#" class="btn btn-danger">Delete</a>
               </div>
             </div>
