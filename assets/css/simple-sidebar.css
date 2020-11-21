@@ -15,11 +15,16 @@
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
+ background-color: #8EDCEA!important;
 }
 
 #sidebar-wrapper .sidebar-heading {
   padding: 0.875rem 1.25rem;
   font-size: 1.2rem;
+}
+
+.sidebar-heading{
+   font-weight: bold;
 }
 
 #sidebar-wrapper .list-group {
@@ -48,3 +53,14 @@
     margin-left: -15rem;
   }
 }
+
+#sidebar-buton{
+  background-color: #8EDCEA!important;
+  color: #3e565d;
+}
+
+#sidebar-buton:hover{
+  background-color: #75d5e6 !important;
+  color: white;
+}
+
