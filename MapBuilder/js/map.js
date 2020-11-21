@@ -778,11 +778,9 @@ function add_product()
 		data: 
 		{
 			p : "chestie"+breaks+"produce", //"chestie"+breaks+product_name+breaks+location_tag_target_block+breaks+location_tag_x+breaks+location_tag_y,
-			q : "rEBp5oGdqm0SJu4OPJXb", // "tTGjsXp8VRD573uqUh9L",
+			q : "rEBp5oGdqm0SJu4OPJXb" // "tTGjsXp8VRD573uqUh9L",
 			// 'image' : formData
 		},
-		contentType: false,
-        processData: false,
 		success: function(response){ 
 			console.log(response);
 			alert("ALL GOOD");
