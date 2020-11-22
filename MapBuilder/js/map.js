@@ -50,7 +50,8 @@ var location_tag_target_block = 0;
 
 var store_product_switch = 0;
 
-//console.log(screen.height+" "+screen.width);
+var map_name = "";
+var map_hash = "";
 
 function switch_to_block_manage()
 {
@@ -72,6 +73,35 @@ function add_block()
 	target_modify_block = blocks_count;
 	update_add_block_menu_vals("",200,200,0,5,20);
 	blocks_count++;
+}
+
+function re_add_block(block) 
+{
+	var name = block.name;
+	var id = "block_nr_" + block.id;
+	var x = block.x;
+	var y = block.y;
+	var height = block.heiht;
+	var width = block.width;
+	var border_radius = block.borderRadius;
+	var background_color = block.backgroundColor;
+	var transform = block.transform;
+	var font_size = block.fontSize;
+	var font_color = block.fontColor;
+	var products = block.products;
+	$("#map").html( $("#map").html() + "\n<div class='map_block' id='"+id+"' onclick='check_product_location("+blocks_count+");' onmousedown='activate_switch_block(event);' onmouseup='deactivate_switch_block();'><p class='map_block_text' id='map_block_text_"+blocks_count+"'>" + name + "</p></div>" );
+	var new_block = document.getElementById(id);
+	new_block.style.top = y;
+	new_block.style.left = x;
+	new_block.style.height = height;
+	new_block.style.width = width;
+	new_block.style.borderRadius = border_radius;
+	new_block.style.backgroundColor = background_color;
+	new_block.style.transform = transform;
+	new_block.style.fontSize = font_size;
+	new_block.style.fontColor = font_color;
+	//TODO: Need to add the products here
+
 }
 
 function check_ctrl(e)
@@ -583,15 +613,17 @@ function export_map()
 {
 	$('#blocks_manager').css("display", "none");
 	$("#options_div_buttons").html('');
-	$('#options_div_buttons').html('<div class="col-lg-12 col-md-12 col-sm-12 btn-option"><button type="button" class="options_div_btn btn btn-primary" style="width:95%" onclick="generate_json();" >Generate JSON</button></div>');
-	var store_map = $('#map');
-	generate_json(store_map.html().split('\n'));
+	$('#options_div_buttons').html('<div class="col-lg-12 col-md-12 col-sm-12 btn-option"><button type="button" class="options_div_btn btn btn-success" style="width:95%" onclick="generate_json();" >SAVE</button></div><div class="col-lg-12 col-md-12 col-sm-12 btn-option"><a href="../index.html"><button type="button" class="options_div_btn btn btn-success" style="width:95%"" >RETURN HOME</button></a></div>');
+	// var store_map = $('#map');
+	// generate_json(store_map.html().split('\n'));
 
 	// console.log(store_map.html().split('\n'));
 }
 
-function generate_json(items)
+function generate_json()
 {
+	items = $('#map').html().split('\n');
+
 	console.log("[*] Generating Map Json");
 	var store_map = new Object();
 	store_map.blocks = [];
@@ -607,15 +639,27 @@ function generate_json(items)
 		console.log("ID=",element[0].id.substring(9,element[0].id.length));
 		block_item.id = element[0].id.substring(9,element[0].id.length);
 
-		console.log("Top="+element[0].style.top);
-		block_item.y = element[0].top;
+		if (element[0].top == ""){
+			block_item.y = 	parseInt( document.documentElement.scrollTop + (screen.height/2) ); 
+		}
+		else{
+			console.log("Top="+element[0].style.top);
+			block_item.y = element[0].style.top;
 
-		console.log("Left="+element[0].style.left);
-		block_item.x = element[0].left
+		}
+
+		if (element[0].left == ""){
+			block_item.x = parseInt( document.documentElement.scrollLeft + (screen.width/2) );
+		}
+		else{
+			console.log("Left="+element[0].style.left);
+			block_item.x = element[0].style.left
+
+		}
 
 		if (element[0].style.height == ""){
 			console.log("Height=200px"); // default value
-			block_item.heiht = "200px";
+			block_item.height = "200px";
 		}else{
 			console.log("Height="+element[0].style.height);
 			block_item.height = element[0].style.height;
@@ -638,8 +682,8 @@ function generate_json(items)
 		}
 		
 		if (element[0].style.backgroundColor == ""){
-			console.log("Background Color=red"); // default value
-			block_item.backgroundColor = "red";
+			console.log("Background Color=#e0e0e0"); // default value
+			block_item.backgroundColor = "#e0e0e0";
 		}else{
 			console.log("Background Color="+element[0].style.backgroundColor);
 			block_item.backgroundColor = element[0].style.backgroundColor;
@@ -680,6 +724,39 @@ function generate_json(items)
 		// console.log("BLOCK: "+JSON.stringify(block_item));
 	}
 	console.log("MAP:"+JSON.stringify(store_map));
+	console.log("MAP HASH="+map_hash);
+
+	$.ajax({
+		type: 'POST',
+		url: 'https://mapstore.tech/api/api.php',
+		dataType: 'text', 
+		cache:false,
+		data: {
+			p : map_hash+breaks+JSON.stringify(store_map),
+			q : 'AuTstCDGNPXZYqSah7rw' 
+		},
+		success: function(response){ 
+			console.log(response);
+			alert("ALL GOOD");
+		},
+		error: function (request, status, error) {
+			alert(request.responseText);
+		}
+	});
+}
+
+function deserialize_json(data) {
+	var parsed;
+	try {
+		parsed = JSON.parse(data);
+	} catch {
+		console.log("Failed to parse json, this might be cause by the poor server performance or a corrupted map. Try reloading the page...");
+		alert("Operation failed, try reloading the page.");
+	}
+	var blocks = parsed.blocks;
+	blocks.forEach(block => {
+		re_add_block(block);
+	});
 }
 
 function switch_to_add_product_menu()
@@ -756,32 +833,30 @@ function add_product()
 	location_tag_y = ( (location_tag_y - target_block_y_pos) / target_block_height );
 
 	var product_name = $('#product_name_input').val();
-	var product_picture = $('#product_file_input').val();
+	var product_picture = $('#product_file_input').val().replace("C:\\fakepath\\","");
 
 	// alert(location_tag_x+" "+location_tag_y);
 
 	var product_obj = {block:location_tag_target_block, x:location_tag_x, y:location_tag_y, name:product_name, image:product_picture};
 	product_list.push(product_obj);
 
-	var fileInput = document.getElementById('product_file_input');
-	var prod_file = fileInput.files[0];
-	console.log('>>'+prod_file);
-	var formData = new FormData();
-	formData.append('image', prod_file);
-	console.log(formData);
+	var file_data = $('#product_file_input').prop('files')[0];   
+    var form_data = new FormData();                  
+    form_data.append('file', file_data);
+	console.log(form_data);
+	// console.log(atob(form_data));    
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://46.101.144.20/api/api.php',
-		data: 
-		{
-			p : "chestie"+breaks+product_name+breaks+location_tag_target_block+breaks+location_tag_x+breaks+location_tag_y,
-			q : "tTGjsXp8VRD573uqUh9L",
-			image : formData
-		},
+		url: 'https://mapstore.tech/api/api.php?q=tTGjsXp8VRD573uqUh9L&p='+"chestie"+";;"+product_name+";;"+location_tag_target_block+";;"+location_tag_x+";;"+location_tag_y,
+		dataType: 'text', 
+		cache:false,
+		contentType: false,
+		processData:false,
+		data: form_data,
 		success: function(response){ 
 			console.log(response);
-			alert("ALL GOOD");
+			// alert("ALL GOOD");
 		},
 		error: function (request, status, error) {
 			alert(request.responseText);
@@ -798,3 +873,104 @@ function toggle_options_div()
 {
 	$('#options_div').slideToggle( "slow" );
 }
+
+function create_map()
+{
+	map_name = $("#MAP_name").val();
+	
+	$.ajax({
+		type: 'POST',
+		url: 'https://mapstore.tech/api/api.php',
+		dataType: 'text', 
+		cache:false,
+		data: {
+			p : map_name,
+			q : 'tiJrTMM0wVD0F1f57cx6' 
+		},
+		success: function(response){ 
+			console.log(response);
+			map_hash = response;
+			// alert("ALL GOOD");
+		},
+		error: function (request, status, error) {
+			alert(request.responseText);
+		}
+	});
+
+	$('#name_modal').click();
+}
+
+window.onload = function () {
+	var url = document.location.href;
+	console.log("URL="+url);
+	var params = url.split('?');
+	if (params.length > 1){
+		params = params[1].split('&');
+        var data = {}, tmp;
+		for (var i = 0, l = params.length; i < l; i++) {
+			tmp = params[i].split('=');
+			data[tmp[0]] = tmp[1];
+		}
+		//data.hash contains map hash
+		try {
+			map_hash = data.hash;
+
+			$.ajax({
+				type: 'POST',
+				url: 'https://mapstore.tech/api/api.php',
+				dataType: 'text', 
+				cache:false,
+				data: {
+					p : map_hash,
+					q : 'ZgmIgQtPgtKIqn4dl7Sg' 
+				},
+				success: function(response){ 
+					console.log(response);
+					deserialize_json(response);
+					// alert("ALL GOOD");
+				},
+				error: function (request, status, error) {
+					alert(request.responseText);
+				}
+			});
+
+		} catch {
+
+		}
+	}
+	else{
+		$('#name_modal').click();
+	}
+
+}
+
+$('#search_div_img').click(function(){
+	var keyword = $("#search_div_search_input").val();
+	console.log(keyword);
+	console.log("MAP HASH="+map_hash);
+
+	$.ajax({
+		type: 'POST',
+		url: 'https://mapstore.tech/api/api.php',
+		dataType: 'text', 
+		cache:false,
+		data: {
+			p : map_hash+breaks+keyword,
+			q : 'CEmdT9qYmSZiYATES2Q6' 
+		},
+		success: function(response){ 
+			console.log(response);
+			if (response != "") {
+				$("#name_modal").click();
+				var product = JSON.parse(response);
+				$("#search_label").html("Product: " + product.name);
+				$("#product_image").attr("src", product.image);
+				var block_name = $("#" + product.block).html;
+				$("#block_location").html("Block: " + block_name);
+			}
+		},
+		error: function (request, status, error) {
+			alert(request.responseText);
+		}
+	});
+});

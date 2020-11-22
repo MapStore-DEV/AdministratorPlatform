@@ -22,7 +22,22 @@
 </head>
 
 <body>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="qr_preview" style="display:none"></button>
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src="" id="the_qr" width="100%">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
@@ -79,70 +94,7 @@
         <p>Bosulica, aici poti as <code>adaugi</code> magazine. Poti sa <code>editezi</code> magazine si ofc, le poti sterge  .</p>
       </div>
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Magazin Calea Sagului</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
-                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Magazin Giroc</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
-                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Magazin Iuliu Mall</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
-                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Magazin Subsol Georgel</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
-                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <div class="card store-card" style="width: 18rem;">
-              <img class="card-img-top" src="assets/img/store-icon.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Magazin Subsol Georgel</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary" id="edit-buton">Edit</a>
-                <a href="#" class="btn btn-primary" id="generate-qr-buton">QR Code</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </div>
-          <div class="text-center col-xl-3 col-lg-4 col-md-6 col-sm-12" id="btn-add-store">
-            <button type="button" class="btn btn-danger btn-circle btn-xl"><img src="assets/icons/plus.png" width="40px"></button> 
-          </div>
+        <div class="row" id="markets_dashboard">
         </div>
 
       </div>
@@ -154,7 +106,12 @@
 
   <!-- Bootstrap core JavaScript -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/js/dashboard.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script>
+    $('#qr_preview').click();
+  </script> -->
 
   <!-- Menu Toggle Script -->
   <script>

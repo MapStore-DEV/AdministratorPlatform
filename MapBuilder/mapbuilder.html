@@ -4,12 +4,36 @@
 	<title>Build Map</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/map.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/map.css">
 	<link rel="stylesheet" type="text/css" href="css/mapstore-theme.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="name_modal" style="display:none">
+	  Launch demo modal
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-body">
+			<div class="form-group">
+				<label for="MAP_name" style="color:#EF5167">MAP Name</label>
+				<input type="text" class="form-control" id="MAP_name" aria-describedby="emailHelp" placeholder="Enter Map Name">
+				<small class="form-text text-muted">This name will be displayed on the dashboard.</small>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" onclick="create_map()">Save changes</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 
 <div id="zoom_div" class="btn btn-success">
 	<div class="zoom_div_btn" onclick="zoom_in();" >+</div>
@@ -202,31 +226,51 @@
 			</div>
 		</div>
 
-		<div id="add_product_div" style="display: none;">
-			
-				<div id="add_block_div">
-					<div class="add_block_div_range"><div style="display: inline;">Product Name: </div> <input type="text" name="" id="product_name_input" class="add_block_div_input"> <img src="img/text.png" class="add_block_div_img"></div>
-				</div>
-
-				<div id="add_block_div">
-					<div class="add_block_div_range"><div style="display: inline;">Product Image: </div> <input type="file" name="" id="product_file_input" class="add_block_div_input"> <img src="img/gallery.png" class="add_block_div_img"></div>
-				</div>
-
-				<div id="add_block_div">
-					<div class="add_block_div_range"><div style="display: inline;" id="product_location_div" >Product Location: </div> <button type="button" class="options_div_btn_2 btn btn-primary" id="select_location_btn" onclick="select_product_location(0);" >Set Location</button> <img src="img/target.png" class="add_block_div_img"></div>
-				</div>
-
-				<div id="options_div_buttons">
-					
-					<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
-						<button type="button" class="options_div_btn btn btn-danger" onclick="clone_selected();" style="width:95%">Cancel</button>
+		<form id="product_form">
+			<div id="add_product_div" style="display: none;">
+				
+					<div id="add_block_div">
+						<div class="add_block_div_range">
+							<div style="display: inline;">
+								Product Name: 
+							</div> 
+							<input type="text" name="product_name" id="product_name_input" class="add_block_div_input"> <img src="img/text.png" class="add_block_div_img"></div>
 					</div>
-					<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
-						<button type="button" class="options_div_btn_3 btn btn-success" style="width:95%" onclick="add_product();" >Finish</button>
-					</div>
-				</div>
 
-		</div>
+					<input value="tTGjsXp8VRD573uqUh9L" name="q" style="display:none">
+
+					<div id="add_block_div">
+						<div class="add_block_div_range">
+							<div style="display: inline;">
+								Product Image: 
+							</div> 
+							<input type="file" name="product_image" id="product_file_input" class="add_block_div_input"> <img src="img/gallery.png" class="add_block_div_img"></div>
+					</div>
+
+					<div id="add_block_div">
+						<div class="add_block_div_range">
+							<div style="display: inline;" id="product_location_div" >
+								Product Location: 
+							</div> 
+							<button type="button" class="options_div_btn_2 btn btn-primary" id="select_location_btn" onclick="select_product_location(0);" >
+								Set Location
+							</button> 
+							<img src="img/target.png" class="add_block_div_img">
+						</div>
+					</div>
+
+					<div id="options_div_buttons">
+						
+						<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
+							<button type="button" class="options_div_btn btn btn-danger" onclick="clone_selected();" style="width:95%">Cancel</button>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 btn-option">
+							<button type="button" class="options_div_btn_3 btn btn-success" style="width:95%" onclick="add_product();" >Finish</button>
+						</div>
+					</div>
+
+			</div>
+		</form>
 
 	</div>
 
@@ -235,6 +279,7 @@
 <div id="map">
 	<img src="img/location.png" id="location_tag" onmousedown="switch_on_location_tag(event);" onmouseup="switch_off_location_tag();" onmousemove="move_location_tag(event);">
 </div>
-
-</body>
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+</body>	
 </html>
